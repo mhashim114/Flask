@@ -1,8 +1,15 @@
-html, body{
-    background-color: black;
+
+
+img{
+    width: auto;
+    height: 30%;
+    border-radius: 50px;
+}
+h1, p{
+    color: maroon;
+    text-align: center;
 }
 
-h1, p{
-    color: red;
-    text-align: center;
+.container-sm{
+    margin: 20px;
 }

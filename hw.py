@@ -10,6 +10,10 @@ def home():
 def football():
     return render_template('football.html') 
 
+@app.route('/about', methods = ['GET'])
+def about():
+    return render_template('about.html')
+
 if __name__ == '__main__':
     app.run(debug = True, port = 8000)
 
