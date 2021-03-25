@@ -5,11 +5,24 @@ img{
     height: 30%;
     border-radius: 50px;
 }
-h1, p{
+h1{
+    text-align: center;
+}
+
+#heading2{
+    color: maroon;
+}
+
+p{
     color: maroon;
     text-align: center;
 }
 
 .container-sm{
     margin: 20px;
+}
+
+.container{
+    text-align: center;
+    margin-top: 100px;
 }
