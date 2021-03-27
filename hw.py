@@ -14,7 +14,7 @@ def signup():
         
         return render_template('signup.html', message = message)
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def home():
     if request.method == 'GET':
         return render_template('index.html')
@@ -22,12 +22,13 @@ def home():
         username = request.form['username']
         password = request.form['password']
 
-        if username == 'admin' and password == 'admin':
+        if model.login(username, password):
             success_message = 'Login Successful'
             return render_template('index.html', message = success_message)
         else:
             error_message = 'Invalid credentials'
             return render_template('index.html', message = error_message)
+        
 
 @app.route('/showPass', methods = ['GET', 'POST'])
 def admin_pass():
