@@ -1,10 +1,11 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h1>Show Password</h1>
+<h1>Create Account</h1>
 <div class = container>
-    <form action="/showPass" method="post">
+    <form action="/signup" method="post">
         <input type="text" placeholder="Username" name="username" required>
+        <input type="password" placeholder="Password" name="password" required>
         <input type="submit">
     </form>
     <h2 id="heading2">{{ message }}</h2>

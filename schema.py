@@ -1,6 +1,6 @@
 import sqlite3
 
-connection = sqlite3.connect('learning-flask.db', check_same_thread=False)
+connection = sqlite3.connect('learning-flask.db', check_same_thread = False)
 
 cursor = connection.cursor()
 
