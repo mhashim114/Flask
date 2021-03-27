@@ -9,8 +9,8 @@ cursor.execute(
         username,
         password
     )VALUES(
-        'admin',
-        'admin'
+        'hashim_math',
+        'mathxi2020'
     );
     """
 )

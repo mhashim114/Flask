@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import model
 
 app = Flask(__name__)
 
@@ -18,8 +19,9 @@ def home():
             return render_template('index.html', message = error_message)
 
 @app.route('/football', methods = ['GET'])
-def football():
-    return render_template('football.html') 
+def admin_pass():
+    password = model.show_admin_pass('hashim_math')
+    return render_template('football.html', message = password) 
 
 @app.route('/about', methods = ['GET'])
 def about():
