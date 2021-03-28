@@ -36,11 +36,11 @@ def create_account(username, password):
     message = "Account created successfully"
     return message
 
-def login(username , password):
+def user_exists(username, password):
     connection = sqlite3.connect('learning-flask.db', check_same_thread = False)
     cursor = connection.cursor()
 
-    cursor.execute(""" select * from users where username = '{username}'; """.format(username = username))
+    cursor.execute(""" select * from users where username = '{username}' and password = '{password}'; """.format(username = username, password = password))
     userFound = 0
     if cursor.fetchone() != None:
         userFound = 1
