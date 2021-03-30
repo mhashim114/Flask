@@ -51,7 +51,46 @@ def user_exists(username, password):
 
     return userFound
 
+def create_new_list(list_name):
+    connection = sqlite3.connect('todo.db', check_same_thread=False)
+    cursor = connection.cursor()
 
+    cursor.execute(
+        """ CREATE TABLE '{list_name}'(
+            pk INTEGER PRIMARY KEY AUTOINCREMENT,
+            item VARCHAR(16),
+            completed INTEGER(1)
+        );""".format(list_name = list_name)
+    )
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    message = "List created successfully"
+    return message
+
+def add_item_in_list(item):
+    connection = sqlite3.connect('todo.db', check_same_thread=False)
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """ INSERT INTO office(
+            item,
+            completed
+        )VALUES(
+            '{item}',
+            '{completed}'
+
+        );""".format(item = item, completed = False)
+    )
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    message = "New Item added successfully"
+    return message
 
 
 

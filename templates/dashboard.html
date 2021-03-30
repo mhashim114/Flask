@@ -8,6 +8,18 @@
 <h1>MY DASHBOARD</h1>
 <div class = container>
     <p>TO DO.....</p>
+    <form action="/create_new_list" method="POST">
+        <h3>Create New List</h3>
+        <input type="text" name = 'new_list' placeholder="Name">
+        <input type="submit" name = "create_list" value="Create">
+    </form>
+
+    <form action="/add_item" method="POST">
+        <h3>Add Item</h3>
+        <input type="text" name = 'new_item' placeholder="Item">
+        <input type="submit" name = "add_item" value="Add">
+    </form>
+
     <form action="/login" method="GET">
         <input type="submit" name="logout" value="logout">
     </form>

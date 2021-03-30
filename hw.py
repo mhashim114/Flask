@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, flash
-import model
+from flask import Flask, render_template, request, url_for, redirect
+import model, logging
 
 app = Flask(__name__)
 
@@ -39,7 +39,25 @@ def home():
          
 @app.route('/dashboard', methods = ['GET'])
 def dashboard():
-    return render_template('dashboard.html')
+    if request.method == 'GET':
+        return render_template('dashboard.html')
+
+@app.route('/create_new_list', methods = ['POST'])
+def new_list():
+    newList = request.form['new_list']
+    message = model.create_new_list(newList)
+    
+    app.logger.info(message)
+    return redirect(url_for('dashboard'))
+
+@app.route('/add_item', methods = ['POST'])
+def add():
+    newItem = request.form['new_item']
+    message = model.add_item_in_list(newItem)
+    
+    app.logger.info(message)
+    return redirect(url_for('dashboard'))
+
 
 @app.route('/about', methods = ['GET'])
 def about():
