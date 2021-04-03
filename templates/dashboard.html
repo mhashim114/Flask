@@ -27,6 +27,35 @@
             
         </div>
 
+        <div class="col">
+           
+            <form action="/dashboard" method="POST">
+                <h3>Show Item</h3>
+                <p style="font-family:verdana">
+                    Choose a list:<SELECT name="lists" style="font-family:verdana">
+                    {% for list in lists %}
+                      <OPTION value={{list[0]}}>{{list[0]}}</OPTION>
+                    {% endfor %}
+               
+                <input type="submit" name = "show_items" value="Show">
+
+                <p style="font-family:verdana">
+                    Choose a list:<SELECT name="item" style="font-family:verdana">
+                    {% for item in list_items %}
+                      <OPTION value={{item[1]}}>{{item[1]}}</OPTION>
+                    {% endfor %}
+               
+                <input type="submit" name = "update_item" value="Update">
+            </form>
+            </SELECT>
+            </p>
+        
+    </div>
+
+    
+
+        
+
         <div class="col-sm">
             <form action="/create_new_list" method="POST">
                 <h3>Create New List</h3>

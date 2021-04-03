@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3, logging
 
 def show_admin_pass(user):
     connection  = sqlite3.connect('learning-flask.db', check_same_thread = False)
@@ -104,6 +104,33 @@ def show_all_lists():
     connection.close()
 
     return tables
+
+def show_all_list_items(checkList):
+    connection = sqlite3.connect('todo.db', check_same_thread=False)
+    cursor = connection.cursor()
+
+    cursor.execute(""" select * from '{todo_list}' where completed = 'False';""".format(todo_list=checkList))
+    list_items = cursor.fetchall()
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return list_items
+
+def update_item(checkList, item):
+    connection = sqlite3.connect('todo.db', check_same_thread=False)
+    cursor = connection.cursor()
+
+    cursor.execute(""" UPDATE '{todo_list}' SET completed = 'True' WHERE item = '{item}';""".format(todo_list=checkList, item = item))
+    
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+
+
 
 
 

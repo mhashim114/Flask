@@ -37,11 +37,24 @@ def home():
             error_message = 'Invalid credentials'
             return render_template('index.html', message = error_message)
          
-@app.route('/dashboard', methods = ['GET'])
+@app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboard():
     if request.method == 'GET':
         lists = model.show_all_lists()
         return render_template('dashboard.html', lists = lists)
+    else:
+        lists = model.show_all_lists()
+        if 'show_items' in request.form:
+            todo_list = request.form['lists']
+            list_items = model.show_all_list_items(todo_list)
+            return render_template('dashboard.html', lists = lists, list_items = list_items)
+        
+        if 'update_item' in request.form:
+            lists = model.show_all_lists()
+            todo_list = request.form['lists']
+            list_items = request.form['item']
+            model.update_item(todo_list, list_items)
+            return render_template('dashboard.html', lists = lists, list_items = list_items)
 
 @app.route('/create_new_list', methods = ['POST'])
 def new_list():
@@ -59,6 +72,12 @@ def add():
     
     app.logger.info(message)
     return redirect(url_for('dashboard'))
+
+@app.route('/update_item', methods = ['POST'])
+def update_item():
+    item = request.form['item']
+    if item:
+        model.update_item(item)
 
 
 @app.route('/about', methods = ['GET'])
