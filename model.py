@@ -70,19 +70,19 @@ def create_new_list(list_name):
     message = "List created successfully"
     return message
 
-def add_item_in_list(item):
+def add_item_in_list(item, inList):
     connection = sqlite3.connect('todo.db', check_same_thread=False)
     cursor = connection.cursor()
 
     cursor.execute(
-        """ INSERT INTO office(
+        """ INSERT INTO '{inList}'(
             item,
             completed
         )VALUES(
             '{item}',
             '{completed}'
 
-        );""".format(item = item, completed = False)
+        );""".format(inList = inList, item = item, completed = False)
     )
 
     connection.commit()
@@ -91,6 +91,19 @@ def add_item_in_list(item):
 
     message = "New Item added successfully"
     return message
+
+def show_all_lists():
+    connection = sqlite3.connect('todo.db', check_same_thread=False)
+    cursor = connection.cursor()
+
+    cursor.execute(""" SELECT name FROM sqlite_master WHERE type = 'table' AND name  NOT LIKE 'sqlite_%';""")
+    tables = cursor.fetchall() 
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return tables
 
 
 

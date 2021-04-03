@@ -32,7 +32,7 @@ def home():
 
         if model.user_exists(username, password):
             success_message = 'Login Successful'
-            return render_template('dashboard.html')
+            return redirect(url_for('dashboard'))
         else:
             error_message = 'Invalid credentials'
             return render_template('index.html', message = error_message)
@@ -40,7 +40,8 @@ def home():
 @app.route('/dashboard', methods = ['GET'])
 def dashboard():
     if request.method == 'GET':
-        return render_template('dashboard.html')
+        lists = model.show_all_lists()
+        return render_template('dashboard.html', lists = lists)
 
 @app.route('/create_new_list', methods = ['POST'])
 def new_list():
@@ -53,7 +54,8 @@ def new_list():
 @app.route('/add_item', methods = ['POST'])
 def add():
     newItem = request.form['new_item']
-    message = model.add_item_in_list(newItem)
+    inList = request.form['lists']
+    message = model.add_item_in_list(newItem, inList)
     
     app.logger.info(message)
     return redirect(url_for('dashboard'))
