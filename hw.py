@@ -1,11 +1,56 @@
-from flask import Flask, render_template, request, url_for, redirect
+# Python Imports
+from flask import Flask, render_template, request, url_for, redirect, session, g
 import model, logging
+
+# Local Imports
+from controllers.parsing import parse 
 
 app = Flask(__name__)
 
+app.secret_key = 'jumpingjacks'
+
+username = ''
+user = model.check_user()
+
 @app.route('/', methods =['GET'])
 def home_page():
-    return render_template('home.html')
+    if 'username' in session:
+        g.user = session['username']
+        return render_template('football.html', message = 'login Successful')
+    return render_template('homepage.html', message = 'Login or Signup!!!')
+
+
+@app.route('/login', methods = ['GET', 'POST'])
+#@parse
+def login():
+    if request.method == 'POST':
+        session.pop('username', None)
+        username = request.form['username']
+        pwd = request.form['password']
+        if model.user_exists(username, pwd):
+            app.logger.info("USER EXISTS")
+            session['username'] = request.form['username']
+            return redirect(url_for('home_page'))
+            
+    return render_template('index.html')
+
+@app.before_request
+def before_request():
+    g.username = None
+    if 'username' in session:
+        g.username = session['username'] 
+
+@app.route('/getsession')
+def getsession():
+    if 'username' in session:
+        return session['username']
+    return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('home_page')) 
+
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
@@ -22,7 +67,7 @@ def signup():
         message = model.create_account(username, password)
         return render_template('signup.html', message = message)
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login1', methods = ['GET', 'POST'])
 def home():
     if request.method == 'GET':
         return render_template('index.html')

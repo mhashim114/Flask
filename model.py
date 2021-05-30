@@ -129,6 +129,24 @@ def update_item(checkList, item):
     cursor.close()
     connection.close()
 
+def check_user():
+    connection = sqlite3.connect('learning-flask.db', check_same_thread=False)
+    cursor = connection.cursor()
+    cursor.execute("""select username from users order by pk desc;""")
+    db_users = cursor.fetchall()
+    users = []
+
+    for i in range(len(db_users)):
+        person = db_users[i][0]
+        users.append(person)
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return users
+     
+
 
 
 

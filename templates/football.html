@@ -3,10 +3,9 @@
 {% block main %}
 <h1>Show Password</h1>
 <div class = container>
-    <form action="/showPass" method="post">
-        <input type="text" placeholder="Username" name="username" required>
-        <input type="submit">
-    </form>
+    <h1>LOGGED IN</h1>
     <h2 id="heading2">{{ message }}</h2>
+
+    <a href="/logout">Logout</a>
 </div>
 {% endblock main %}
